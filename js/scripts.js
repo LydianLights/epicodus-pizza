@@ -68,7 +68,7 @@ function Pizza(size, crust, sauce, cheese, toppings) {
 
 // id = programatic identifier
 // header = user-readable heading
-// optionList = list of PizzaOptions
+// optionList = list of PizzaProperties
 // type = "radio" or "checklist"
 function PizzaOptionSelection(id, header, optionList, type) {
   this.id = id;
@@ -93,7 +93,6 @@ PizzaOptionSelection.prototype.generateHtml = function() {
     return html;
   }
   else if (this.type === "checklist") {
-    // Use i as id for each item
     for (var i = 0; i < this.optionList.length; i++) {
       html +=
       `<p>
@@ -105,13 +104,20 @@ PizzaOptionSelection.prototype.generateHtml = function() {
   }
 }
 
-// Returns jQuery reference of currently checked option
+// Returns array of PizzaProperty(ies) corresponding to checked item(s)
 PizzaOptionSelection.prototype.getSelected = function() {
-  if (this.type = "radio") {
-    return $('input:radio[name=' + this.id + ']:checked');
+  var list = this.optionList;
+  if (this.type === "radio") {
+    var id = $('input:radio[name=' + this.id + ']:checked').val();
+    return list[id];
   }
-  else if (this.type = "checkbox") {
-    return $('input:checkbox[name=' + this.id + ']:checked');
+  else if (this.type === "checklist") {
+    var output = [];
+    $('input:checkbox[name=' + this.id + ']:checked').each(function(){
+      var id = $(this).val();
+      output.push(list[id]);
+    })
+    return output;
   }
 }
 
@@ -130,6 +136,6 @@ $(document).ready(function() {
 
   $("#pizza-builder").submit(function(event) {
     event.preventDefault();
-
+    console.log(pizzaToppingsSelect.getSelected());
   });
 });
