@@ -82,14 +82,34 @@ function generatePizzaSizes() {
   return html;
 }
 
+function generateCrustTypes() {
+  html = '<h3>Pick your favorite crust</h3>';
+  html += generateRadioListFromProperties(pizzaCrustTypes, "crust-types");
+  return html;
+}
+
+function generateSauceTypes() {
+  html = '<h3>What kind of sauce do you want?</h3>';
+  html += generateRadioListFromProperties(pizzaSauceTypes, "sauce-types");
+  return html;
+}
+
+function generateCheeseTypes() {
+  html = '<h3>How much cheese should we add?</h3>';
+  html += generateRadioListFromProperties(pizzaCheeseTypes, "cheese-types");
+  return html;
+}
+
 function generatePizzaToppings() {
   html = '<h3>Choose your toppings</h3>';
   html += generateCheckboxListFromProperties(pizzaToppings, "pizza-toppings");
   return html;
 }
 
-
 $(document).ready(function() {
   $("#pizza-size-select").append(generatePizzaSizes());
+  $("#pizza-crust-select").append(generateCrustTypes());
+  $("#pizza-sauce-select").append(generateSauceTypes());
+  $("#pizza-cheese-select").append(generateCheeseTypes());
   $("#pizza-toppings-select").append(generatePizzaToppings());
 });
