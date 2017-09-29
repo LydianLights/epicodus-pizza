@@ -1,115 +1,102 @@
 // id = programatic identifier
 // text = user-readable description
-function PizzaProperty(id, text) {
+function PizzaOption(id, text) {
   this.id = id;
   this.text = text;
 }
 
+// id = programatic identifier
+// header = user-readable heading
+// optionList = list of PizzaOptions
+// type = "radio" or "checklist"
+function PizzaOptionSelection(id, header, optionList, type) {
+  this.id = id;
+  this.header = header;
+  this.optionList = optionList;
+  this.type = type;
+}
+
+// Returns html to display option selection to the page
+// Returns undefined if invalid list type
+PizzaOptionSelection.prototype.generateHtml = function() {
+  var html = '<h3>' + this.header + '</h3>';
+  if (this.type = "radio") {
+    this.optionList.forEach(function(option) {
+      html +=
+      `<p>
+      <input type="radio" name="` + this.id + `" id="` + this.id + `-` + option.id + `" value="` + option.id + `">
+      <label for="` + this.id + `-` + option.id + `">` + option.text + `</label>
+      </p>`;
+    });
+    return html;
+  }
+  else if (this.type = "checkbox") {
+    this.optionList.forEach(function(option) {
+      html +=
+      `<p>
+      <input type="checkbox" class="filled-in" name="` + this.id + `" id="` + this.id + `-` + option.id + `" value="` + option.id + `">
+      <label for="` + this.id + `-` + option.id + `">` + option.text + `</label>
+      </p>`;
+    });
+    return html;
+  }
+  return undefined;
+}
+
 // Option enumerations
-// new PizzaProperty("", ""),
+// new PizzaOption("", ""),
 var pizzaSizes = [
-  new PizzaProperty("sm", "Small"),
-  new PizzaProperty("md", "Medium"),
-  new PizzaProperty("lg", "Large"),
-  new PizzaProperty("xl","Extra Large")
+  new PizzaOption("sm", "Small"),
+  new PizzaOption("md", "Medium"),
+  new PizzaOption("lg", "Large"),
+  new PizzaOption("xl","Extra Large")
 ];
 
 var pizzaCrustTypes = [
-  new PizzaProperty("regular", "Regular"),
-  new PizzaProperty("thin", "Thin"),
-  new PizzaProperty("deep-dish", "Deep Dish")
+  new PizzaOption("regular", "Regular"),
+  new PizzaOption("thin", "Thin"),
+  new PizzaOption("deep-dish", "Deep Dish")
 ];
 
 var pizzaSauceTypes = [
-  new PizzaProperty("original", "Original"),
-  new PizzaProperty("ranch", "Ranch"),
-  new PizzaProperty("bbq", "BBQ")
+  new PizzaOption("original", "Original"),
+  new PizzaOption("ranch", "Ranch"),
+  new PizzaOption("bbq", "BBQ")
 ];
 
 var pizzaCheeseTypes = [
-  new PizzaProperty("normal", "Normal"),
-  new PizzaProperty("extra", "Extra"),
-  new PizzaProperty("none", "No Cheese")
+  new PizzaOption("normal", "Normal"),
+  new PizzaOption("extra", "Extra"),
+  new PizzaOption("none", "No Cheese")
 ];
 
 var pizzaToppings = [
-  new PizzaProperty("pepperoni", "Pepperoni"),
-  new PizzaProperty("chicken", "Chicken"),
-  new PizzaProperty("beef", "Beef"),
-  new PizzaProperty("sausage", "Sausage"),
-  new PizzaProperty("bacon", "Bacon"),
-  new PizzaProperty("anchovies", "Anchovies"),
-  new PizzaProperty("ham", "Ham"),
+  new PizzaOption("pepperoni", "Pepperoni"),
+  new PizzaOption("chicken", "Chicken"),
+  new PizzaOption("beef", "Beef"),
+  new PizzaOption("sausage", "Sausage"),
+  new PizzaOption("bacon", "Bacon"),
+  new PizzaOption("anchovies", "Anchovies"),
+  new PizzaOption("ham", "Ham"),
 
-  new PizzaProperty("pineapple", "Pineapple"),
-  new PizzaProperty("tomatoes", "Tomatoes"),
-  new PizzaProperty("mushrooms", "Mushrooms"),
-  new PizzaProperty("onions", "Onions"),
-  new PizzaProperty("olives", "Olives"),
-  new PizzaProperty("peppers", "Peppers")
+  new PizzaOption("pineapple", "Pineapple"),
+  new PizzaOption("tomatoes", "Tomatoes"),
+  new PizzaOption("mushrooms", "Mushrooms"),
+  new PizzaOption("onions", "Onions"),
+  new PizzaOption("olives", "Olives"),
+  new PizzaOption("peppers", "Peppers")
 ];
 
-// UI generation
-// Generic list generators
-function generateRadioListFromProperties(propertyList, listID) {
-  html = '';
-  propertyList.forEach(function(property) {
-    html +=
-    `<p>
-    <input type="radio" name="` + listID + `" id="` + listID + `-` + property.id + `" value="` + property.id + `">
-    <label for="` + listID + `-` + property.id + `">` + property.text + `</label>
-    </p>`;
-  });
-  return html;
-}
-
-function generateCheckboxListFromProperties(propertyList, listID) {
-  html = '';
-  propertyList.forEach(function(property) {
-    html +=
-    `<p>
-    <input type="checkbox" class="filled-in" name="` + listID + `" id="` + listID + `-` + property.id + `" value="` + property.id + `">
-    <label for="` + listID + `-` + property.id + `">` + property.text + `</label>
-    </p>`;
-  });
-  return html;
-}
-
-// Specific list generators
-function generatePizzaSizes() {
-  html = '<h3>Choose a pizza size</h3>';
-  html += generateRadioListFromProperties(pizzaSizes, "pizza-sizes");
-  return html;
-}
-
-function generateCrustTypes() {
-  html = '<h3>Pick your favorite crust</h3>';
-  html += generateRadioListFromProperties(pizzaCrustTypes, "crust-types");
-  return html;
-}
-
-function generateSauceTypes() {
-  html = '<h3>What kind of sauce do you want?</h3>';
-  html += generateRadioListFromProperties(pizzaSauceTypes, "sauce-types");
-  return html;
-}
-
-function generateCheeseTypes() {
-  html = '<h3>How much cheese should we add?</h3>';
-  html += generateRadioListFromProperties(pizzaCheeseTypes, "cheese-types");
-  return html;
-}
-
-function generatePizzaToppings() {
-  html = '<h3>Choose your toppings</h3>';
-  html += generateCheckboxListFromProperties(pizzaToppings, "pizza-toppings");
-  return html;
-}
-
 $(document).ready(function() {
-  $("#pizza-size-select").append(generatePizzaSizes());
-  $("#pizza-crust-select").append(generateCrustTypes());
-  $("#pizza-sauce-select").append(generateSauceTypes());
-  $("#pizza-cheese-select").append(generateCheeseTypes());
-  $("#pizza-toppings-select").append(generatePizzaToppings());
+  var pizzaSizeSelect = new PizzaOptionSelection("pizza-sizes", "Choose a pizza size", pizzaSizes, "radio");
+  var pizzaCrustSelect = new PizzaOptionSelection("crust-types", "Pick your favorite crust", pizzaCrustTypes, "radio");
+  var pizzaSauceSelect = new PizzaOptionSelection("sauce-types", "What kind of sauce do you want?", pizzaSauceTypes, "radio");
+  var pizzaCheeseSelect = new PizzaOptionSelection("cheese-types", "How much cheese should we add?", pizzaCheeseTypes, "radio");
+  var pizzaToppingsSelect = new PizzaOptionSelection("pizza-toppings", "Choose your toppings", pizzaToppings, "checklist");
+
+  $("#pizza-size-select").append(pizzaSizeSelect.generateHtml());
+  $("#pizza-crust-select").append(pizzaCrustSelect.generateHtml());
+  $("#pizza-sauce-select").append(pizzaSauceSelect.generateHtml());
+  $("#pizza-cheese-select").append(pizzaCheeseSelect.generateHtml());
+  $("#pizza-toppings-select").append(pizzaToppingsSelect.generateHtml());
 });
