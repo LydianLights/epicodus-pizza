@@ -70,9 +70,8 @@ var pizzaToppings = [
 // header = user-readable heading
 // optionList = list of PizzaOptions
 // type = "radio" or "checklist"
-function PizzaOptionMenu(id, header, optionList, type) {
+function PizzaOptionMenu(id, optionList, type) {
   this.id = id;
-  this.header = header;
   this.optionList = optionList;
   this.type = type;
 }
@@ -80,7 +79,7 @@ function PizzaOptionMenu(id, header, optionList, type) {
 // Returns html to display option selection to the page
 // Returns undefined if invalid list type
 PizzaOptionMenu.prototype.generateHtml = function() {
-  var html = '<h3>' + this.header + '</h3>';
+  var html = '';
   if (this.type === "radio") {
     // Use i as id for each item
     for (var i = 0; i < this.optionList.length; i++) {
@@ -122,17 +121,47 @@ PizzaOptionMenu.prototype.getSelected = function() {
 }
 
 $(document).ready(function() {
-  var sizeMenu = new PizzaOptionMenu("pizza-sizes", "Choose a pizza size", pizzaSizes, "radio");
-  var crustMenu = new PizzaOptionMenu("crust-types", "Pick your favorite crust", pizzaCrustTypes, "radio");
-  var sauceMenu = new PizzaOptionMenu("sauce-types", "What kind of sauce do you want?", pizzaSauceTypes, "radio");
-  var cheeseMenu = new PizzaOptionMenu("cheese-types", "How much cheese should we add?", pizzaCheeseTypes, "radio");
-  var toppingsMenu = new PizzaOptionMenu("pizza-toppings", "Choose your toppings", pizzaToppings, "checklist");
+  var sizeMenu = new PizzaOptionMenu("pizza-sizes", pizzaSizes, "radio");
+  var crustMenu = new PizzaOptionMenu("crust-types", pizzaCrustTypes, "radio");
+  var sauceMenu = new PizzaOptionMenu("sauce-types", pizzaSauceTypes, "radio");
+  var cheeseMenu = new PizzaOptionMenu("cheese-types", pizzaCheeseTypes, "radio");
+  var toppingsMenu = new PizzaOptionMenu("pizza-toppings", pizzaToppings, "checklist");
 
-  $("#pizza-size-menu").append(sizeMenu.generateHtml());
-  $("#pizza-crust-menu").append(crustMenu.generateHtml());
-  $("#pizza-sauce-menu").append(sauceMenu.generateHtml());
-  $("#pizza-cheese-menu").append(cheeseMenu.generateHtml());
-  $("#pizza-toppings-menu").append(toppingsMenu.generateHtml());
+  $("#pizza-size-menu .generated-menu").append(sizeMenu.generateHtml());
+  $("#pizza-crust-menu .generated-menu").append(crustMenu.generateHtml());
+  $("#pizza-sauce-menu .generated-menu").append(sauceMenu.generateHtml());
+  $("#pizza-cheese-menu .generated-menu").append(cheeseMenu.generateHtml());
+  $("#pizza-toppings-menu .generated-menu").append(toppingsMenu.generateHtml());
+
+  $("#pizza-builder-intro .btn-start").click(function() {
+    $("#pizza-builder-intro").slideUp();
+    $("#pizza-builder").slideDown();
+  });
+
+  $("#pizza-size-menu .btn-continue").click(function() {
+    $("#pizza-size-menu").slideUp();
+    $("#pizza-crust-menu").slideDown();
+  });
+  $("#pizza-crust-menu .btn-continue").click(function() {
+    $("#pizza-crust-menu").slideUp();
+    $("#pizza-sauce-menu").slideDown();
+  });
+  $("#pizza-sauce-menu .btn-continue").click(function() {
+    $("#pizza-sauce-menu").slideUp();
+    $("#pizza-cheese-menu").slideDown();
+  });
+  $("#pizza-cheese-menu .btn-continue").click(function() {
+    $("#pizza-cheese-menu").slideUp();
+    $("#pizza-toppings-menu").slideDown();
+  });
+
+
+
+
+
+
+
+
 
   $("#pizza-builder").submit(function(event) {
     event.preventDefault();
