@@ -7,9 +7,32 @@
     <script src="js/jquery-3.2.1.js"></script>
     <script src="js/materialize.js"></script>
     <script src="js/scripts.js"></script>
-    <title></title>
+    <title>Bob's Pizza</title>
   </head>
   <body>
-
+    <div class="page-container">
+      <div class="page-header">
+        <h1>Bob's Pizza</h1>
+      </div>
+      <div class="page-body">
+        <form id="pizza-builder">
+          <div id="pizza-size">
+            <h3>Choose a pizza size</h3>
+            <p>
+              <input type="radio" name="pizza-size" id="pizza-size-small" value="small">
+              <label for="pizza-size-small">Small</label>
+            </p>
+            <p>
+              <input type="radio" name="pizza-size" id="pizza-size-medium" value="medium">
+              <label for="pizza-size-medium">Medium</label>
+            </p>
+            <p>
+              <input type="radio" name="pizza-size" id="pizza-size-large" value="large">
+              <label for="pizza-size-large">Large</label>
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
   </body>
 </html>
