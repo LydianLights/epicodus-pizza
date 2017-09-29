@@ -20,12 +20,13 @@ function PizzaOptionSelection(id, header, optionList, type) {
 // Returns undefined if invalid list type
 PizzaOptionSelection.prototype.generateHtml = function() {
   var html = '<h3>' + this.header + '</h3>';
+  var id = this.id;
   if (this.type = "radio") {
     this.optionList.forEach(function(option) {
       html +=
       `<p>
-      <input type="radio" name="` + this.id + `" id="` + this.id + `-` + option.id + `" value="` + option.id + `">
-      <label for="` + this.id + `-` + option.id + `">` + option.text + `</label>
+      <input type="radio" name="` + id + `" id="` + id + `-` + option.id + `" value="` + option.id + `">
+      <label for="` + id + `-` + option.id + `">` + option.text + `</label>
       </p>`;
     });
     return html;
@@ -34,13 +35,22 @@ PizzaOptionSelection.prototype.generateHtml = function() {
     this.optionList.forEach(function(option) {
       html +=
       `<p>
-      <input type="checkbox" class="filled-in" name="` + this.id + `" id="` + this.id + `-` + option.id + `" value="` + option.id + `">
-      <label for="` + this.id + `-` + option.id + `">` + option.text + `</label>
+      <input type="checkbox" class="filled-in" name="` + id + `" id="` + id + `-` + option.id + `" value="` + option.id + `">
+      <label for="` + id + `-` + option.id + `">` + option.text + `</label>
       </p>`;
     });
     return html;
   }
-  return undefined;
+}
+
+// Returns jQuery reference of currently checked option
+PizzaOptionSelection.prototype.getSelected = function() {
+  if (this.type = "radio") {
+    return $('input:radio[name=' + this.id + ']:checked');
+  }
+  else if (this.type = "checkbox") {
+    return $('input:checkbox[name=' + this.id + ']:checked');
+  }
 }
 
 // Option enumerations
@@ -94,9 +104,16 @@ $(document).ready(function() {
   var pizzaCheeseSelect = new PizzaOptionSelection("cheese-types", "How much cheese should we add?", pizzaCheeseTypes, "radio");
   var pizzaToppingsSelect = new PizzaOptionSelection("pizza-toppings", "Choose your toppings", pizzaToppings, "checklist");
 
+  console.log(pizzaSizeSelect.generateHtml());
+
   $("#pizza-size-select").append(pizzaSizeSelect.generateHtml());
   $("#pizza-crust-select").append(pizzaCrustSelect.generateHtml());
   $("#pizza-sauce-select").append(pizzaSauceSelect.generateHtml());
   $("#pizza-cheese-select").append(pizzaCheeseSelect.generateHtml());
   $("#pizza-toppings-select").append(pizzaToppingsSelect.generateHtml());
+
+  $("#pizza-builder").submit(function(event) {
+    event.preventDefault();
+    
+  });
 });
