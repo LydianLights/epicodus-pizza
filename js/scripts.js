@@ -1,61 +1,61 @@
-function PizzaSize(id, name, costMultiplier) {
+function PizzaSize(name, costMultiplier) {
   this.name = name;
   this.costMultiplier = costMultiplier;
 }
 var pizzaSizes = [
-  new PizzaSize("sm", "Small", 0.75),
-  new PizzaSize("md", "Medium", 1),
-  new PizzaSize("lg", "Large", 1.25),
-  new PizzaSize("xl", "Extra Large", 1.5)
+  new PizzaSize("Small", 0.75),
+  new PizzaSize("Medium", 1),
+  new PizzaSize("Large", 1.25),
+  new PizzaSize("Extra Large", 1.5)
 ];
 
-function PizzaCrust(id, name) {
+function PizzaCrust(name) {
   this.name = name;
 }
 var pizzaCrustTypes = [
-  new PizzaCrust("regular", "Regular"),
-  new PizzaCrust("thin", "Thin"),
-  new PizzaCrust("deep-dish", "Deep Dish")
+  new PizzaCrust("Regular"),
+  new PizzaCrust("Thin"),
+  new PizzaCrust("Deep Dish")
 ];
 
-function PizzaSauce(id, name) {
+function PizzaSauce(name) {
   this.name = name;
 }
 var pizzaSauceTypes = [
-  new PizzaSauce("original", "Original"),
-  new PizzaSauce("ranch", "Ranch"),
-  new PizzaSauce("bbq", "BBQ")
+  new PizzaSauce("Original"),
+  new PizzaSauce("Ranch"),
+  new PizzaSauce("BBQ")
 ];
 
-function PizzaCheese(id, name, costFactor) {
+function PizzaCheese(name, costFactor) {
   this.name = name;
   this.costAddition - costFactor;
 }
 var pizzaCheeseTypes = [
-  new PizzaCheese("normal", "Normal", 0),
-  new PizzaCheese("extra", "Extra", 1),
-  new PizzaCheese("none", "No Cheese", -1)
+  new PizzaCheese("Normal", 0),
+  new PizzaCheese("Extra", 1),
+  new PizzaCheese("No Cheese", -1)
 ];
 
-function PizzaTopping(id, name, costFactor) {
+function PizzaTopping(name, costFactor) {
   this.name = name;
   this.costAddition = costFactor;
 }
 var pizzaToppings = [
-  new PizzaTopping("pepperoni", "Pepperoni", 1),
-  new PizzaTopping("chicken", "Chicken", 2),
-  new PizzaTopping("beef", "Beef", 1),
-  new PizzaTopping("sausage", "Sausage", 1),
-  new PizzaTopping("bacon", "Bacon", 2),
-  new PizzaTopping("anchovies", "Anchovies", 2),
-  new PizzaTopping("ham", "Ham", 1),
+  new PizzaTopping("Pepperoni", 1),
+  new PizzaTopping("Chicken", 2),
+  new PizzaTopping("Beef", 1),
+  new PizzaTopping("Sausage", 1),
+  new PizzaTopping("Bacon", 2),
+  new PizzaTopping("Anchovies", 2),
+  new PizzaTopping("Ham", 1),
 
-  new PizzaTopping("pineapple", "Pineapple", 1),
-  new PizzaTopping("tomatoes", "Tomatoes", 1),
-  new PizzaTopping("mushrooms", "Mushrooms", 1),
-  new PizzaTopping("onions", "Onions", 1),
-  new PizzaTopping("olives", "Olives", 1),
-  new PizzaTopping("peppers", "Peppers", 1)
+  new PizzaTopping("Pineapple", 1),
+  new PizzaTopping("Tomatoes", 1),
+  new PizzaTopping("Mushrooms", 1),
+  new PizzaTopping("Onions", 1),
+  new PizzaTopping("Olives", 1),
+  new PizzaTopping("Peppers", 1)
 ];
 
 function Pizza(size, crust, sauce, cheese, toppings) {
@@ -81,25 +81,26 @@ function PizzaOptionSelection(id, header, optionList, type) {
 // Returns undefined if invalid list type
 PizzaOptionSelection.prototype.generateHtml = function() {
   var html = '<h3>' + this.header + '</h3>';
-  var id = this.id;
-  if (this.type = "radio") {
-    this.optionList.forEach(function(option) {
+  if (this.type === "radio") {
+    // Use i as id for each item
+    for (var i = 0; i < this.optionList.length; i++) {
       html +=
       `<p>
-      <input type="radio" name="` + id + `" id="` + id + `-` + option.id + `" value="` + option.id + `">
-      <label for="` + id + `-` + option.id + `">` + option.text + `</label>
+      <input type="radio" name="` + this.id + `" id="` + this.id + `-` + i + `" value="` + i + `">
+      <label for="` + this.id + `-` + i + `">` + this.optionList[i].name + `</label>
       </p>`;
-    });
+    }
     return html;
   }
-  else if (this.type = "checkbox") {
-    this.optionList.forEach(function(option) {
+  else if (this.type === "checklist") {
+    // Use i as id for each item
+    for (var i = 0; i < this.optionList.length; i++) {
       html +=
       `<p>
-      <input type="checkbox" class="filled-in" name="` + id + `" id="` + id + `-` + option.id + `" value="` + option.id + `">
-      <label for="` + id + `-` + option.id + `">` + option.text + `</label>
+      <input type="checkbox" class="filled-in" name="` + this.id + `" id="` + this.id + `-` + i + `" value="` + i + `">
+      <label for="` + this.id + `-` + i + `">` + this.optionList[i].name + `</label>
       </p>`;
-    });
+    }
     return html;
   }
 }
@@ -120,8 +121,6 @@ $(document).ready(function() {
   var pizzaSauceSelect = new PizzaOptionSelection("sauce-types", "What kind of sauce do you want?", pizzaSauceTypes, "radio");
   var pizzaCheeseSelect = new PizzaOptionSelection("cheese-types", "How much cheese should we add?", pizzaCheeseTypes, "radio");
   var pizzaToppingsSelect = new PizzaOptionSelection("pizza-toppings", "Choose your toppings", pizzaToppings, "checklist");
-
-  console.log(pizzaSizeSelect.generateHtml());
 
   $("#pizza-size-select").append(pizzaSizeSelect.generateHtml());
   $("#pizza-crust-select").append(pizzaCrustSelect.generateHtml());
