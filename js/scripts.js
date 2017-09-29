@@ -1,8 +1,69 @@
-// id = programatic identifier
-// text = user-readable description
-function PizzaOption(id, text) {
-  this.id = id;
-  this.text = text;
+function PizzaSize(id, name, costMultiplier) {
+  this.name = name;
+  this.costMultiplier = costMultiplier;
+}
+var pizzaSizes = [
+  new PizzaSize("sm", "Small", 0.75),
+  new PizzaSize("md", "Medium", 1),
+  new PizzaSize("lg", "Large", 1.25),
+  new PizzaSize("xl", "Extra Large", 1.5)
+];
+
+function PizzaCrust(id, name) {
+  this.name = name;
+}
+var pizzaCrustTypes = [
+  new PizzaCrust("regular", "Regular"),
+  new PizzaCrust("thin", "Thin"),
+  new PizzaCrust("deep-dish", "Deep Dish")
+];
+
+function PizzaSauce(id, name) {
+  this.name = name;
+}
+var pizzaSauceTypes = [
+  new PizzaSauce("original", "Original"),
+  new PizzaSauce("ranch", "Ranch"),
+  new PizzaSauce("bbq", "BBQ")
+];
+
+function PizzaCheese(id, name, costFactor) {
+  this.name = name;
+  this.costAddition - costFactor;
+}
+var pizzaCheeseTypes = [
+  new PizzaCheese("normal", "Normal", 0),
+  new PizzaCheese("extra", "Extra", 1),
+  new PizzaCheese("none", "No Cheese", -1)
+];
+
+function PizzaTopping(id, name, costFactor) {
+  this.name = name;
+  this.costAddition = costFactor;
+}
+var pizzaToppings = [
+  new PizzaTopping("pepperoni", "Pepperoni", 1),
+  new PizzaTopping("chicken", "Chicken", 2),
+  new PizzaTopping("beef", "Beef", 1),
+  new PizzaTopping("sausage", "Sausage", 1),
+  new PizzaTopping("bacon", "Bacon", 2),
+  new PizzaTopping("anchovies", "Anchovies", 2),
+  new PizzaTopping("ham", "Ham", 1),
+
+  new PizzaTopping("pineapple", "Pineapple", 1),
+  new PizzaTopping("tomatoes", "Tomatoes", 1),
+  new PizzaTopping("mushrooms", "Mushrooms", 1),
+  new PizzaTopping("onions", "Onions", 1),
+  new PizzaTopping("olives", "Olives", 1),
+  new PizzaTopping("peppers", "Peppers", 1)
+];
+
+function Pizza(size, crust, sauce, cheese, toppings) {
+  this.size = size;
+  this.crust = crust;
+  this.sauce = sauce;
+  this. cheese = cheese;
+  this.toppings = toppings;
 }
 
 // id = programatic identifier
@@ -53,50 +114,6 @@ PizzaOptionSelection.prototype.getSelected = function() {
   }
 }
 
-// Option enumerations
-// new PizzaOption("", ""),
-var pizzaSizes = [
-  new PizzaOption("sm", "Small"),
-  new PizzaOption("md", "Medium"),
-  new PizzaOption("lg", "Large"),
-  new PizzaOption("xl","Extra Large")
-];
-
-var pizzaCrustTypes = [
-  new PizzaOption("regular", "Regular"),
-  new PizzaOption("thin", "Thin"),
-  new PizzaOption("deep-dish", "Deep Dish")
-];
-
-var pizzaSauceTypes = [
-  new PizzaOption("original", "Original"),
-  new PizzaOption("ranch", "Ranch"),
-  new PizzaOption("bbq", "BBQ")
-];
-
-var pizzaCheeseTypes = [
-  new PizzaOption("normal", "Normal"),
-  new PizzaOption("extra", "Extra"),
-  new PizzaOption("none", "No Cheese")
-];
-
-var pizzaToppings = [
-  new PizzaOption("pepperoni", "Pepperoni"),
-  new PizzaOption("chicken", "Chicken"),
-  new PizzaOption("beef", "Beef"),
-  new PizzaOption("sausage", "Sausage"),
-  new PizzaOption("bacon", "Bacon"),
-  new PizzaOption("anchovies", "Anchovies"),
-  new PizzaOption("ham", "Ham"),
-
-  new PizzaOption("pineapple", "Pineapple"),
-  new PizzaOption("tomatoes", "Tomatoes"),
-  new PizzaOption("mushrooms", "Mushrooms"),
-  new PizzaOption("onions", "Onions"),
-  new PizzaOption("olives", "Olives"),
-  new PizzaOption("peppers", "Peppers")
-];
-
 $(document).ready(function() {
   var pizzaSizeSelect = new PizzaOptionSelection("pizza-sizes", "Choose a pizza size", pizzaSizes, "radio");
   var pizzaCrustSelect = new PizzaOptionSelection("crust-types", "Pick your favorite crust", pizzaCrustTypes, "radio");
@@ -114,6 +131,6 @@ $(document).ready(function() {
 
   $("#pizza-builder").submit(function(event) {
     event.preventDefault();
-    
+
   });
 });
