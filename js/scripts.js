@@ -1,63 +1,90 @@
-// Pizza properties
 // id = programatic identifier
 // text = user-readable description
-function PizzaSize(id, text) {
-  this.id = id;
-  this.text = text;
-}
-
-function PizzaTopping(id, text) {
+function PizzaProperty(id, text) {
   this.id = id;
   this.text = text;
 }
 
 // Option enumerations
+// new PizzaProperty("", ""),
 var pizzaSizes = [
-  new PizzaSize("sm", "Small"),
-  new PizzaSize("md", "Medium"),
-  new PizzaSize("lg", "Large"),
-  new PizzaSize("xl","Extra Large")
+  new PizzaProperty("sm", "Small"),
+  new PizzaProperty("md", "Medium"),
+  new PizzaProperty("lg", "Large"),
+  new PizzaProperty("xl","Extra Large")
 ];
 
-  var pizzaToppings = [
-    new PizzaTopping("pepperoni", "Pepperoni"),
-    new PizzaTopping("chicken", "Chicken"),
-    new PizzaTopping("beef", "Beef"),
-    new PizzaTopping("sausage", "Sausage"),
-    new PizzaTopping("bacon", "Bacon"),
-    new PizzaTopping("anchovies", "Anchovies"),
-    new PizzaTopping("ham", "Ham"),
+var pizzaCrustTypes = [
+  new PizzaProperty("regular", "Regular"),
+  new PizzaProperty("thin", "Thin"),
+  new PizzaProperty("deep-dish", "Deep Dish")
+];
 
-    new PizzaTopping("pineapple", "Pineapple"),
-    new PizzaTopping("tomatoes", "Tomatoes"),
-    new PizzaTopping("mushrooms", "Mushrooms"),
-    new PizzaTopping("onions", "Onions"),
-    new PizzaTopping("olives", "Olives"),
-    new PizzaTopping("peppers", "Peppers")
-  ];
+var pizzaSauceTypes = [
+  new PizzaProperty("original", "Original"),
+  new PizzaProperty("ranch", "Ranch"),
+  new PizzaProperty("bbq", "BBQ")
+];
+
+var pizzaCheeseTypes = [
+  new PizzaProperty("normal", "Normal"),
+  new PizzaProperty("extra", "Extra"),
+  new PizzaProperty("none", "No Cheese")
+];
+
+var pizzaToppings = [
+  new PizzaProperty("pepperoni", "Pepperoni"),
+  new PizzaProperty("chicken", "Chicken"),
+  new PizzaProperty("beef", "Beef"),
+  new PizzaProperty("sausage", "Sausage"),
+  new PizzaProperty("bacon", "Bacon"),
+  new PizzaProperty("anchovies", "Anchovies"),
+  new PizzaProperty("ham", "Ham"),
+
+  new PizzaProperty("pineapple", "Pineapple"),
+  new PizzaProperty("tomatoes", "Tomatoes"),
+  new PizzaProperty("mushrooms", "Mushrooms"),
+  new PizzaProperty("onions", "Onions"),
+  new PizzaProperty("olives", "Olives"),
+  new PizzaProperty("peppers", "Peppers")
+];
 
 // UI generation
-function generatePizzaSizes() {
-  html = '<h3>Choose a pizza size</h3>';
-  pizzaSizes.forEach(function(size) {
+// Generic list generators
+function generateRadioListFromProperties(propertyList, listID) {
+  html = '';
+  propertyList.forEach(function(property) {
     html +=
     `<p>
-    <input type="radio" name="pizza-size" id="pizza-size-` + size.id + `" value="` + size.id + `">
-    <label for="pizza-size-` + size.id + `">` + size.text + `</label>
+    <input type="radio" name="` + listID + `" id="` + listID + `-` + property.id + `" value="` + property.id + `">
+    <label for="` + listID + `-` + property.id + `">` + property.text + `</label>
     </p>`;
   });
   return html;
 }
 
-function generatePizzaToppings() {
-  html = '<h3>Choose your toppings</h3>';
-  pizzaToppings.forEach(function(topping) {
+function generateCheckboxListFromProperties(propertyList, listID) {
+  html = '';
+  propertyList.forEach(function(property) {
     html +=
     `<p>
-    <input type="checkbox" class="filled-in" name="pizza-topping" id="pizza-topping-` + topping.id + `" value="` + topping.id + `">
-    <label for="pizza-topping-` + topping.id + `">` + topping.text + `</label>
+    <input type="checkbox" class="filled-in" name="` + listID + `" id="` + listID + `-` + property.id + `" value="` + property.id + `">
+    <label for="` + listID + `-` + property.id + `">` + property.text + `</label>
     </p>`;
   });
+  return html;
+}
+
+// Specific list generators
+function generatePizzaSizes() {
+  html = '<h3>Choose a pizza size</h3>';
+  html += generateRadioListFromProperties(pizzaSizes, "pizza-sizes");
+  return html;
+}
+
+function generatePizzaToppings() {
+  html = '<h3>Choose your toppings</h3>';
+  html += generateCheckboxListFromProperties(pizzaToppings, "pizza-toppings");
   return html;
 }
 
