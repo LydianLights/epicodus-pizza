@@ -143,6 +143,5 @@ $(document).ready(function() {
     cheese = cheeseMenu.getSelected();
     toppings = toppingsMenu.getSelected();
     var pizza = new Pizza(size, crust, sauce, cheese, toppings);
-    console.log(pizza);
   });
 });
