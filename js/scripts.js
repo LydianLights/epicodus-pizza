@@ -23,7 +23,7 @@ function PizzaCrust(name) {
 var pizzaCrustTypes = [
   new PizzaCrust("Regular"),
   new PizzaCrust("Thin"),
-  new PizzaCrust("Deep Dish")
+  new PizzaCrust("Deep-Dish")
 ];
 
 function PizzaSauce(name) {
