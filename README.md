@@ -10,7 +10,7 @@ _This application provides a user-driven graphical interface allowing efficient 
 
 ## Link
 
-_To construct and receive an assemblage yourself, visit [TODO]
+_To construct and receive an assemblage yourself, visit https://lydianlights.github.io/epicodus-pizza/_
 
 ## Behavior Specs
 
@@ -30,7 +30,7 @@ _To construct and receive an assemblage yourself, visit [TODO]
 _To download the source code of this project, just follow the listed instructions:_
 
 * _Download a git client if you don't already have one. I recommend [Git Bash](https://git-for-windows.github.io/)._
-* _Clone the project using the link: `[TODO]`
+* _Clone the project using the link: `https://github.com/LydianLights/epicodus-pizza.git`
 (instructions on how to clone can be found in your git client documentation)_
 * _Open the project folder in your favorite plaintext editor_
 
