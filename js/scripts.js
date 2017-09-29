@@ -1,3 +1,11 @@
+function Pizza(size, crust, sauce, cheese, toppings) {
+  this.size = size;
+  this.crust = crust;
+  this.sauce = sauce;
+  this. cheese = cheese;
+  this.toppings = toppings;
+}
+
 function PizzaSize(name, costMultiplier) {
   this.name = name;
   this.costMultiplier = costMultiplier;
@@ -29,7 +37,7 @@ var pizzaSauceTypes = [
 
 function PizzaCheese(name, costFactor) {
   this.name = name;
-  this.costAddition - costFactor;
+  this.costFactor = costFactor;
 }
 var pizzaCheeseTypes = [
   new PizzaCheese("Normal", 0),
@@ -39,7 +47,7 @@ var pizzaCheeseTypes = [
 
 function PizzaTopping(name, costFactor) {
   this.name = name;
-  this.costAddition = costFactor;
+  this.costFactor = costFactor;
 }
 var pizzaToppings = [
   new PizzaTopping("Pepperoni", 1),
@@ -58,19 +66,11 @@ var pizzaToppings = [
   new PizzaTopping("Peppers", 1)
 ];
 
-function Pizza(size, crust, sauce, cheese, toppings) {
-  this.size = size;
-  this.crust = crust;
-  this.sauce = sauce;
-  this. cheese = cheese;
-  this.toppings = toppings;
-}
-
-// id = programatic identifier
+// id = html identifier
 // header = user-readable heading
-// optionList = list of PizzaProperties
+// optionList = list of PizzaOptions
 // type = "radio" or "checklist"
-function PizzaOptionSelection(id, header, optionList, type) {
+function PizzaOptionMenu(id, header, optionList, type) {
   this.id = id;
   this.header = header;
   this.optionList = optionList;
@@ -79,7 +79,7 @@ function PizzaOptionSelection(id, header, optionList, type) {
 
 // Returns html to display option selection to the page
 // Returns undefined if invalid list type
-PizzaOptionSelection.prototype.generateHtml = function() {
+PizzaOptionMenu.prototype.generateHtml = function() {
   var html = '<h3>' + this.header + '</h3>';
   if (this.type === "radio") {
     // Use i as id for each item
@@ -104,8 +104,8 @@ PizzaOptionSelection.prototype.generateHtml = function() {
   }
 }
 
-// Returns array of PizzaProperty(ies) corresponding to checked item(s)
-PizzaOptionSelection.prototype.getSelected = function() {
+// Returns array of PizzaOptions(s) corresponding to checked item(s)
+PizzaOptionMenu.prototype.getSelected = function() {
   var list = this.optionList;
   if (this.type === "radio") {
     var id = $('input:radio[name=' + this.id + ']:checked').val();
@@ -122,20 +122,27 @@ PizzaOptionSelection.prototype.getSelected = function() {
 }
 
 $(document).ready(function() {
-  var pizzaSizeSelect = new PizzaOptionSelection("pizza-sizes", "Choose a pizza size", pizzaSizes, "radio");
-  var pizzaCrustSelect = new PizzaOptionSelection("crust-types", "Pick your favorite crust", pizzaCrustTypes, "radio");
-  var pizzaSauceSelect = new PizzaOptionSelection("sauce-types", "What kind of sauce do you want?", pizzaSauceTypes, "radio");
-  var pizzaCheeseSelect = new PizzaOptionSelection("cheese-types", "How much cheese should we add?", pizzaCheeseTypes, "radio");
-  var pizzaToppingsSelect = new PizzaOptionSelection("pizza-toppings", "Choose your toppings", pizzaToppings, "checklist");
+  var sizeMenu = new PizzaOptionMenu("pizza-sizes", "Choose a pizza size", pizzaSizes, "radio");
+  var crustMenu = new PizzaOptionMenu("crust-types", "Pick your favorite crust", pizzaCrustTypes, "radio");
+  var sauceMenu = new PizzaOptionMenu("sauce-types", "What kind of sauce do you want?", pizzaSauceTypes, "radio");
+  var cheeseMenu = new PizzaOptionMenu("cheese-types", "How much cheese should we add?", pizzaCheeseTypes, "radio");
+  var toppingsMenu = new PizzaOptionMenu("pizza-toppings", "Choose your toppings", pizzaToppings, "checklist");
 
-  $("#pizza-size-select").append(pizzaSizeSelect.generateHtml());
-  $("#pizza-crust-select").append(pizzaCrustSelect.generateHtml());
-  $("#pizza-sauce-select").append(pizzaSauceSelect.generateHtml());
-  $("#pizza-cheese-select").append(pizzaCheeseSelect.generateHtml());
-  $("#pizza-toppings-select").append(pizzaToppingsSelect.generateHtml());
+  $("#pizza-size-menu").append(sizeMenu.generateHtml());
+  $("#pizza-crust-menu").append(crustMenu.generateHtml());
+  $("#pizza-sauce-menu").append(sauceMenu.generateHtml());
+  $("#pizza-cheese-menu").append(cheeseMenu.generateHtml());
+  $("#pizza-toppings-menu").append(toppingsMenu.generateHtml());
 
   $("#pizza-builder").submit(function(event) {
     event.preventDefault();
-    console.log(pizzaToppingsSelect.getSelected());
+    var size, crust, sauce, cheese, toppings;
+    size = sizeMenu.getSelected();
+    crust = crustMenu.getSelected();
+    sauce = sauceMenu.getSelected();
+    cheese = cheeseMenu.getSelected();
+    toppings = toppingsMenu.getSelected();
+    var pizza = new Pizza(size, crust, sauce, cheese, toppings);
+    console.log(pizza);
   });
 });
