@@ -14,6 +14,8 @@ _To construct and receive an assemblage yourself, visit https://lydianlights.git
 
 ## Behavior Specs
 
+This project is currently under construction. Not all specs are met 100%.
+
 | Behavior                                                        | Input                 | Output                               |
 |-----------------------------------------------------------------|-----------------------|--------------------------------------|
 | User can choose their pizza size                                | "small"               | store info and progress to next step |
@@ -22,6 +24,7 @@ _To construct and receive an assemblage yourself, visit https://lydianlights.git
 | User can choose crust type                                      | "thin crust"          | store info and progress to next step |
 | User can choose sauce type and amount                           | "light regular sauce" | store info and progress to next step |
 | User can add extra cheese or no cheese                          | "more cheese please"  | store info and progress to next step |
+| When pizza is complete, user can see its price                  | "done making pizza"   | "12.99"                              |
 | User can add multiple pizzas                                    | "add new pizza"       | begin pizza construction             |
 | User can add additional items (cheese sticks, salad, hot wings) | "add cheese sticks"   | add cheese sticks to order           |
 
@@ -40,7 +43,7 @@ _This project is a simple html page with linked css and js files. It makes use o
 
 ## Known Bugs
 
-* [TODO]
+* Not using bootstrap, so all those nice automatic media queries are gone. Page may break with extreme resizing.
 
 ### License
 
