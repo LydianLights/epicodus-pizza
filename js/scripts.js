@@ -2,8 +2,20 @@ function Pizza(size, crust, sauce, cheese, toppings) {
   this.size = size;
   this.crust = crust;
   this.sauce = sauce;
-  this. cheese = cheese;
+  this.cheese = cheese;
   this.toppings = toppings;
+}
+
+Pizza.prototype.getPrice = function() {
+  var price = 10;
+  var toppingsPrice = 0;
+  this.toppings.forEach(function(topping) {
+    toppingsPrice += topping.costFactor;
+  });
+  toppingsPrice += this.cheese.costFactor;
+  price += toppingsPrice * 2;
+  price *= this.size.costMultiplier;
+  return Math.floor(price) + 0.99;
 }
 
 function PizzaSize(name, costMultiplier) {
@@ -155,22 +167,23 @@ $(document).ready(function() {
     $("#pizza-toppings-menu").slideDown();
   });
 
-
-
-
-
-
-
-
-
-  $("#pizza-builder").submit(function(event) {
-    event.preventDefault();
-    var size, crust, sauce, cheese, toppings;
+  $("#pizza-toppings-menu .btn-order").click(function() {
+    var size, crust, sauce, cheese, toppings, price;
     size = sizeMenu.getSelected();
     crust = crustMenu.getSelected();
     sauce = sauceMenu.getSelected();
     cheese = cheeseMenu.getSelected();
     toppings = toppingsMenu.getSelected();
     var pizza = new Pizza(size, crust, sauce, cheese, toppings);
+    price = pizza.getPrice();
+
+    $(".result-size").text(size.name.toLowerCase());
+    $(".result-crust").text(crust.name.toLowerCase());
+    $(".result-sauce").text(sauce.name.toLowerCase());
+
+    $(".result-cost").text(price);
+
+    $("#pizza-builder").slideUp();
+    $("#pizza-builder-result").slideDown();
   });
 });
