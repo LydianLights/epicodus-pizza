@@ -145,34 +145,43 @@ $(document).ready(function() {
   $("#pizza-cheese-menu .generated-menu").append(cheeseMenu.generateHtml());
   $("#pizza-toppings-menu .generated-menu").append(toppingsMenu.generateHtml());
 
+  var size, crust, sauce, cheese, toppings, price;
+
   $("#pizza-builder-intro .btn-start").click(function() {
     $("#pizza-builder-intro").slideUp();
     $("#pizza-builder").slideDown();
   });
 
   $("#pizza-size-menu .btn-continue").click(function() {
-    $("#pizza-size-menu").slideUp();
-    $("#pizza-crust-menu").slideDown();
+    size = sizeMenu.getSelected();
+    if (size !== undefined) {
+      $("#pizza-size-menu").slideUp();
+      $("#pizza-crust-menu").slideDown();
+    }
   });
   $("#pizza-crust-menu .btn-continue").click(function() {
-    $("#pizza-crust-menu").slideUp();
-    $("#pizza-sauce-menu").slideDown();
+    crust = crustMenu.getSelected();
+    if (crust !== undefined) {
+      $("#pizza-crust-menu").slideUp();
+      $("#pizza-sauce-menu").slideDown();
+    }
   });
   $("#pizza-sauce-menu .btn-continue").click(function() {
-    $("#pizza-sauce-menu").slideUp();
-    $("#pizza-cheese-menu").slideDown();
+    sauce = sauceMenu.getSelected();
+    if (sauce !== undefined) {
+      $("#pizza-sauce-menu").slideUp();
+      $("#pizza-cheese-menu").slideDown();
+    }
   });
   $("#pizza-cheese-menu .btn-continue").click(function() {
-    $("#pizza-cheese-menu").slideUp();
-    $("#pizza-toppings-menu").slideDown();
+    cheese = cheeseMenu.getSelected();
+    if (cheese !== undefined) {
+      $("#pizza-cheese-menu").slideUp();
+      $("#pizza-toppings-menu").slideDown();
+    }
   });
 
   $("#pizza-toppings-menu .btn-order").click(function() {
-    var size, crust, sauce, cheese, toppings, price;
-    size = sizeMenu.getSelected();
-    crust = crustMenu.getSelected();
-    sauce = sauceMenu.getSelected();
-    cheese = cheeseMenu.getSelected();
     toppings = toppingsMenu.getSelected();
     var pizza = new Pizza(size, crust, sauce, cheese, toppings);
     price = pizza.getPrice();
